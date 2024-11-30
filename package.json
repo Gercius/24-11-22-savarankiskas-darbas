@@ -1,0 +1,12 @@
+{
+    "name": "24-12-04-uzd",
+    "version": "1.0.0",
+    "main": "main.js",
+    "type": "module",
+    "scripts": {
+        "sass": "sass --watch src/styles/sass:src/styles/css"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
