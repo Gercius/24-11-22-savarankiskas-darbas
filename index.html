@@ -8,29 +8,22 @@
     </head>
     <body>
         <section class="container">
-            <aside>
-                <nav>
-                    <ul class="categories">
-                        <button>
-                            <li>cat 1</li>
-                        </button>
-                        <button>
-                            <li>cat 2</li>
-                        </button>
-                        <button>
-                            <li>cat 3</li>
-                        </button>
-                    </ul>
-                </nav>
-            </aside>
+            <header>
+                <form action="" class="search-form">
+                    <label for="search">Book search</label>
+                    <input type="text" name="search" />
+                </form>
+            </header>
 
             <main>
-                <section class="books">
-                    <article class="book-card">book</article>
-                    <article class="book-card">book</article>
-                    <article class="book-card">book</article>
-                    <article class="book-card">book</article>
-                </section>
+                <div class="">
+                    <label for="categories">Categories</label>
+                    <select name="categories" class="categories">
+                        <option value="show-all">Rodyti visas</option>
+                    </select>
+                </div>
+
+                <section class="books"></section>
             </main>
         </section>
 

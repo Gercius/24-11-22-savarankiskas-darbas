@@ -12,6 +12,7 @@ html {
 
 body {
   font-family: system-ui, sans-serif;
+  background: black;
 }
 
 img {
@@ -35,6 +36,53 @@ a {
 
 li {
   list-style: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.container > * {
+  padding: 1rem;
+}
+
+header {
+  flex-grow: 1;
+  background: lightblue;
+}
+header nav h2 {
+  text-align: center;
+}
+header nav .categories {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+main {
+  background: lightcyan;
+  flex-grow: 4;
+}
+main .books {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+main .books .book-card .title {
+  margin-bottom: 1rem;
+  word-break: break-word;
+}
+@media screen and (min-width: 481px) {
+  main .books {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-content: center;
+    text-align: unset;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

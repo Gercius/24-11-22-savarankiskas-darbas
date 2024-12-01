@@ -13,6 +13,7 @@ html {
 
 body {
     font-family: system-ui, sans-serif;
+    background: black;
 }
 
 img {
@@ -36,4 +37,67 @@ a {
 
 li {
     list-style: none;
+}
+
+// UTILS
+
+.hidden {
+    display: none;
+}
+
+// LAYOUT
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+
+    > * {
+        padding: 1rem;
+    }
+}
+
+// CATEGORIES
+
+header {
+    flex-grow: 1;
+    background: lightblue;
+
+    nav {
+        h2 {
+            text-align: center;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+    }
+}
+
+// BOOKS
+
+main {
+    background: lightcyan;
+    flex-grow: 4;
+
+    .books {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 1fr);
+        gap: 2rem;
+        text-align: center;
+
+        .book-card {
+            .title {
+                margin-bottom: 1rem;
+                word-break: break-word;
+            }
+        }
+
+        @media screen and (min-width: 481px) {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            justify-content: center;
+            text-align: unset;
+        }
+    }
 }

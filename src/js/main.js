@@ -1,30 +1,66 @@
 import { inventory } from "./data.js";
 
-listBooks();
-calculateInventoryValue();
+(function main() {
+    renderBooks();
+    renderCategories();
+    searchBooks();
+})();
 
-function listBooks() {
+function renderBooks() {
+    const booksEl = document.querySelector(".books");
+
     inventory.forEach((category) => {
         const bookGroup = category.books;
         bookGroup.forEach((book) => {
-            // console.log(book.publishing_year === 2021 ? book.title + " - New book" : book.title);
+            const bookCard = createBookComponent(book);
+            booksEl.innerHTML += bookCard;
         });
     });
+
+    function createBookComponent(bookInfo) {
+        return `
+        <article class="book-card">
+            <h3 class="title">${bookInfo.title}</h3>
+            <p class="year">Publishing Year: ${bookInfo.publishing_year}</p>
+            <p class="pages">Pages: ${bookInfo.pages}</p>
+            <p class="price">Price: ${bookInfo.price}</p>
+            <p class="quantity">Quantity: ${bookInfo.quantity}</p>
+            <p class="isbn">ISBN: ${bookInfo.ISBN}</p>
+        </article>
+    `;
+    }
 }
 
-function calculateInventoryValue() {
-    let totalValue = 0;
+function renderCategories() {
+    const categoryListEl = document.querySelector(".categories");
+    const categories = getCategories();
 
-    inventory.forEach((category) => {
-        const bookGroup = category.books;
-
-        let bookCategoryValue = 0;
-        bookGroup.forEach((book) => {
-            bookCategoryValue += book.quantity * book.price;
-        });
-        // console.log(`Overall value of category ${category.category}: ${bookCategoryValue}`);
-
-        totalValue += bookCategoryValue;
+    categories.forEach((category) => {
+        const optionEl = document.createElement("option");
+        optionEl.textContent = category;
+        optionEl.value = category.toLowerCase();
+        categoryListEl.appendChild(optionEl);
     });
-    // console.log("Overall inventory value:", totalValue);
+
+    function getCategories() {
+        const uniqueCategories = new Set();
+        inventory.forEach((category) => {
+            uniqueCategories.add(category.category);
+        });
+        return uniqueCategories;
+    }
+}
+
+function searchBooks() {
+    const searchEl = document.querySelector('[name="search"]');
+    const bookList = document.querySelectorAll(".book-card .title");
+
+    searchEl.addEventListener("input", (e) => {
+        bookList.forEach((bookTitleEl) => {
+            const bookTitle = bookTitleEl.innerHTML.toLowerCase();
+            const input = e.target.value.toLowerCase();
+            const bookFound = bookTitle.includes(input);
+            bookTitleEl.parentElement.classList.toggle("hidden", !bookFound);
+        });
+    });
 }
