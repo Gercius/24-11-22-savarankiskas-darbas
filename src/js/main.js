@@ -4,6 +4,7 @@ import { inventory } from "./data.js";
     renderBooks();
     renderCategories();
     searchBooks();
+    filterByCategory();
 })();
 
 function renderBooks() {
@@ -12,14 +13,14 @@ function renderBooks() {
     inventory.forEach((category) => {
         const bookGroup = category.books;
         bookGroup.forEach((book) => {
-            const bookCard = createBookComponent(book);
+            const bookCard = createBookComponent(book, category.category.toLowerCase());
             booksEl.innerHTML += bookCard;
         });
     });
 
-    function createBookComponent(bookInfo) {
+    function createBookComponent(bookInfo, category) {
         return `
-        <article class="book-card">
+        <article class="book-card" data-category="${category}">
             <h3 class="title">${bookInfo.title}</h3>
             <p class="year">Publishing Year: ${bookInfo.publishing_year}</p>
             <p class="pages">Pages: ${bookInfo.pages}</p>
@@ -61,6 +62,28 @@ function searchBooks() {
             const input = e.target.value.toLowerCase();
             const bookFound = bookTitle.includes(input);
             bookTitleEl.parentElement.classList.toggle("hidden", !bookFound);
+        });
+    });
+}
+
+function filterByCategory() {
+    const selectCategoriesEl = document.querySelector(".categories");
+    const booksEl = document.querySelectorAll(".book-card");
+
+    selectCategoriesEl.addEventListener("change", (e) => {
+        const selectValue = e.target.value;
+
+        if (selectValue === "show-all") {
+            booksEl.forEach((bookCard) => {
+                bookCard.classList.remove("hidden");
+            });
+            return;
+        }
+
+        booksEl.forEach((bookCard) => {
+            const bookCategory = bookCard.dataset.category;
+            const currentSelection = bookCategory === selectValue;
+            bookCard.classList.toggle("hidden", !currentSelection);
         });
     });
 }
