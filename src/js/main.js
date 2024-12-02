@@ -1,26 +1,27 @@
-import { inventory } from "./data.js";
+import { inventory as data } from "./data.js";
 
 (function main() {
-    renderBooks();
+    renderBooks(data);
     renderCategories();
     searchBooks();
     filterByCategory();
 })();
 
-function renderBooks() {
+function renderBooks(data) {
     const booksEl = document.querySelector(".books");
+    booksEl.innerHTML = "";
 
-    inventory.forEach((category) => {
+    data.forEach((category) => {
         const bookGroup = category.books;
         bookGroup.forEach((book) => {
-            const bookCard = createBookComponent(book, category.category.toLowerCase());
+            const bookCard = createBookComponent(book);
             booksEl.innerHTML += bookCard;
         });
     });
 
-    function createBookComponent(bookInfo, category) {
+    function createBookComponent(bookInfo) {
         return `
-        <article class="book-card" data-category="${category}">
+        <article class="book-card"">
             <h3 class="title">${bookInfo.title}</h3>
             <p class="year">Publishing Year: ${bookInfo.publishing_year}</p>
             <p class="pages">Pages: ${bookInfo.pages}</p>
@@ -39,13 +40,13 @@ function renderCategories() {
     categories.forEach((category) => {
         const optionEl = document.createElement("option");
         optionEl.textContent = category;
-        optionEl.value = category.toLowerCase();
+        optionEl.value = category;
         categoryListEl.appendChild(optionEl);
     });
 
     function getCategories() {
         const uniqueCategories = new Set();
-        inventory.forEach((category) => {
+        data.forEach((category) => {
             uniqueCategories.add(category.category);
         });
         return uniqueCategories;
@@ -54,9 +55,9 @@ function renderCategories() {
 
 function searchBooks() {
     const searchEl = document.querySelector('[name="search"]');
-    const bookList = document.querySelectorAll(".book-card .title");
 
     searchEl.addEventListener("input", (e) => {
+        const bookList = document.querySelectorAll(".book-card .title");
         bookList.forEach((bookTitleEl) => {
             const bookTitle = bookTitleEl.innerHTML.toLowerCase();
             const input = e.target.value.toLowerCase();
@@ -68,22 +69,16 @@ function searchBooks() {
 
 function filterByCategory() {
     const selectCategoriesEl = document.querySelector(".categories");
-    const booksEl = document.querySelectorAll(".book-card");
 
     selectCategoriesEl.addEventListener("change", (e) => {
         const selectValue = e.target.value;
 
         if (selectValue === "show-all") {
-            booksEl.forEach((bookCard) => {
-                bookCard.classList.remove("hidden");
-            });
+            renderBooks(data);
             return;
         }
 
-        booksEl.forEach((bookCard) => {
-            const bookCategory = bookCard.dataset.category;
-            const currentSelection = bookCategory === selectValue;
-            bookCard.classList.toggle("hidden", !currentSelection);
-        });
+        const currentCategory = data.filter((category) => category.category === selectValue);
+        renderBooks(currentCategory);
     });
 }
