@@ -49,7 +49,8 @@ function renderCategories() {
         data.forEach((category) => {
             uniqueCategories.add(category.category);
         });
-        return uniqueCategories;
+
+        return Array.from(uniqueCategories).sort();
     }
 }
 
