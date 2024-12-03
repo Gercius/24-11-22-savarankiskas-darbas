@@ -58,10 +58,10 @@ function searchBooks() {
     const searchEl = document.querySelector('[name="search"]');
 
     searchEl.addEventListener("input", (e) => {
+        const input = e.target.value.toLowerCase();
         const bookList = document.querySelectorAll(".book-card .title");
         bookList.forEach((bookTitleEl) => {
             const bookTitle = bookTitleEl.innerHTML.toLowerCase();
-            const input = e.target.value.toLowerCase();
             const bookFound = bookTitle.includes(input);
             bookTitleEl.parentElement.classList.toggle("hidden", !bookFound);
         });
