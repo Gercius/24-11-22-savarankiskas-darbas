@@ -23,10 +23,10 @@ function renderBooks(data) {
         return `
         <article class="book-card"">
             <h3 class="title">${bookInfo.title}</h3>
-            <p class="year">Publishing Year: ${bookInfo.publishing_year}</p>
-            <p class="pages">Pages: ${bookInfo.pages}</p>
-            <p class="price">Price: ${bookInfo.price}</p>
-            <p class="quantity">Quantity: ${bookInfo.quantity}</p>
+            <p class="year">Metai: ${bookInfo.publishing_year}</p>
+            <p class="pages">Puslapiai: ${bookInfo.pages}</p>
+            <p class="price">Kaina: ${bookInfo.price}</p>
+            <p class="quantity">Kiekis: ${bookInfo.quantity}</p>
             <p class="isbn">ISBN: ${bookInfo.ISBN}</p>
         </article>
     `;
