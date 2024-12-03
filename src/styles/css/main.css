@@ -51,27 +51,19 @@ li {
 }
 
 header {
-  flex-grow: 1;
   background: lightblue;
-}
-header nav h2 {
   text-align: center;
-}
-header nav .categories {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
 }
 
 main {
   background: lightcyan;
-  flex-grow: 4;
 }
 main .books {
   display: grid;
   grid-template-columns: repeat(auto-fill, 1fr);
   gap: 2rem;
   text-align: center;
+  margin-top: 1rem;
 }
 main .books .book-card .title {
   margin-bottom: 1rem;
